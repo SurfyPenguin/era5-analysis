@@ -10,6 +10,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "cds-weather-api",
+    "ipykernel>=7.2.0",
     "xarray>=2026.2.0",
 ]
 
