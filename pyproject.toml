@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "era5-analysis"
+version = "0.1.0"
+description = "A project to analyze ERA5 data for insights focused around climate extremes."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "cds-weather-api",
+    "xarray>=2026.2.0",
+]
+
+[tool.uv.sources]
+cds-weather-api = { git = "https://github.com/SurfyPenguin/cds-weather-api" }
