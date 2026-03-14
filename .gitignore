@@ -1,10 +1,33 @@
-# Python-generated files
+# Standard Python Ignores
+# Compiled python files
 __pycache__/
-*.py[oc]
-build/
-dist/
-wheels/
-*.egg-info
+*.pyc
+*.pyd
+*.pyo
 
-# Virtual environments
-.venv
+# Environments
+.env
+.venv/
+env/
+venv/
+
+# IDE and OS files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Datasets and Generated Data
+# Ignore the entire data directory and its contents
+data/
+datasets/
+inputs/
+input/
+
+# Ignore specific large file formats anywhere in the repo
+*.nc
+*.grib
+*.csv
+*.tsv
+*.parquet
+*.sqlite
