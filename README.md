@@ -4,7 +4,7 @@
 
 ## Getting Started
 
-* __Envrionment__:This project uses `uv` for package & project management. Download [uv standalone](https://docs.astral.sh/uv/getting-started/installation/#standalone-installer).
+* __Environment__:This project uses `uv` for package & project management. Download [uv standalone](https://docs.astral.sh/uv/getting-started/installation/#standalone-installer).
 
 * Clone repository:
 ```bash
