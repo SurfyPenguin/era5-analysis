@@ -1,33 +1,72 @@
 # ERA5 Analysis
 
-## This repository analyses ERA5 data for feature creation, which will be used to label climate extremes.
-
 ## Getting Started
 
-* __Environment__:This project uses `uv` for package & project management. Download [uv standalone](https://docs.astral.sh/uv/getting-started/installation/#standalone-installer).
-
-* Clone repository:
+### Clone the project
 ```bash
 git clone https://github.com/SurfyPenguin/era5-analysis.git
 ```
-* Install dependencies:
+
+### Create venv
+
+Using __uv__ can make the setup process smoother:
 ```bash
 uv sync
-
-# for pip
-pip install .
 ```
-* Install project as editable-package:
+This will create `.venv` and install dependencies.
+
+To avoid installing dependencies instantly, use
+```bash
+uv venv
+```
+
+However for __pip__, you will need to create `.venv` manually. Here's how:
+```bash
+python -m venv .venv
+
+source .venv/bin/activate
+```
+for __windows__
+```ps
+# powershell
+.venv\Scripts\activate.ps1
+
+# cmd
+.venv\Scripts\activate.bat
+```
+No need to install dependencies with pip as the next step covers it.
+
+__Note__: If you get something like
+>Running scripts is disabled on this system
+
+or similar `Execution policy error` on windows, you will need to run these commands in ps:
+
+* One-time fix (if you have no idea what the error is about):
+```ps
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
+* Permanent fix for more sophisticated windows users:
+```ps
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+### Create editable Install
 ```bash
 uv pip install -e .
 
 # or
 pip install -e .
 ```
-This gives us access to use `era5_analysis` and download command:
-```python
-form era5_analysis import download
-```
+Now scripts inside `src/` will be accessible.
 
-## Development
-Feel free to create forks, issues or raise pull requests. Any type of contribution that adds value to our analysis is appreciated.
+## Storing Data
+Most of the directory names are self-explanatory.
+* `src/`: Store scripts (`.py`).
+* `config/`: Store config files.
+* `notebooks/`: Store notebooks (`.ipynb`)
+* `data/`: Contains datasets, grouped by `compressed`, `interim`, `processed`, and `raw`.
+* `drafts/`: Store drafts.
+* `outputs/`: Store results, plots, etc.
+
+# License
+This project is licensed under MIT License.
