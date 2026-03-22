@@ -68,5 +68,24 @@ Most of the directory names are self-explanatory.
 * `drafts/`: Store drafts.
 * `outputs/`: Store results, plots, etc.
 
+## Datasets
+### Time span & area (BoundingBox)
+The datasets are collected for the years __2000–2024__, over all months and all days as listed in [config file](config/data.yaml).
+
+### Variables
+We have two types of datasets:
+* __Accumulated__: Summed over time (hours in our case) from the beginning of forecast.
+* __Instantaneous__: Defined at specific time (at any hour) from the beginning of forecast.
+
+In our case, we have one accumulated variable (`tp`) and four instantaneous variables (`t2m`, `v10`, `u10`, `d2m`).
+
+| Parameter | Name | Unit
+|---|---|---|
+| `t2m` | 2 metre temperature | Kelvin ($K$) |
+| `v10`/`u10` | 10 metre u/v wind component | metres per second ($m/s$) |
+| `d2m` | 2 metre dewpoint temperature | Kelvin ($K$) |
+| `tp` | Total precipitation | metres ($m$)
+
+[Learn more](https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels).
 # License
 This project is licensed under MIT License.
