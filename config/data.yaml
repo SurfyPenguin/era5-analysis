@@ -1,4 +1,6 @@
 era5:
+  dataset: "reanalysis-era5-single-levels"
+  product_type: "reanalysis"
   bounding_box: [35, 65, 5, 95]
   variables:
     - "10m_u_component_of_wind"
@@ -6,3 +8,9 @@ era5:
     - "2m_dewpoint_temperature"
     - "2m_temperature"
     - "total_precipitation"
+  download_format: "zip"
+  data_format: "netcdf"
+
+span:
+  year_start: 2000
+  year_end: 2023
