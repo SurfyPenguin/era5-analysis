@@ -8,9 +8,22 @@ era5:
     - "2m_dewpoint_temperature"
     - "2m_temperature"
     - "total_precipitation"
+  parameters:
+    - "u10"
+    - "v10"
+    - "d2m"
+    - "t2m"
+    - "tp"
+  
   download_format: "zip"
   data_format: "netcdf"
 
 span:
   year_start: 2000
   year_end: 2023
+
+paths:
+  compressed: "data/compressed"
+  raw: "data/raw"
+  interim: "data/interim"
+  processed: "data/processed"
