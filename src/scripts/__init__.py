@@ -1,4 +1,7 @@
-from .download import download
+from importlib.metadata import version
 
-__version__ = "0.1.0"
-__all__ = ["download"]
+from .download import download
+from .merge import Datasets, Operations 
+
+__version__ = version("era5-analysis")
+__all__ = ["download", "Datasets", "Operations"]
