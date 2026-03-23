@@ -1,18 +1,17 @@
 from collections.abc import Iterator
 import os
-from typing import overload
-
-from constants import DATA_CONFIG
 
 from cds_weather_api import RequestBuilder
 from cds_weather_api.validators import Validators as validate
+
+from constants import DATA_CONFIG
 
 def month_range(chunk: int) -> Iterator[tuple[int, int]]:
     for start_month in range(1, 13, chunk):
         end_month: int = min(start_month + chunk - 1, 12)
         yield start_month, end_month
 
-def download_year(year: int, output_dir: str | None = None) -> None:
+def download_year(year: int, *,  output_dir: str | None = None) -> None:
     era5_config: dict = DATA_CONFIG["era5"]
     fmt: str = era5_config["download_format"]
 
@@ -43,21 +42,10 @@ def download_year(year: int, output_dir: str | None = None) -> None:
         print(f">> Started download: {target}")
         request.execute()
 
-@overload
-def download(start_year: int, *, output_dir: str | None = None) -> None: ...
+def download(start_year: int, end_year: int | None = None, *, output_dir: str | None = None) -> None:
+    if end_year is None:
+        download_year(start_year, output_dir=output_dir)
 
-@overload
-def download(start_year: int, end_year: int, *, output_dir: str | None = None) -> None: ...
-
-def download(*args, **kwargs):
-    # validate
-    validate.years(args)
-
-    if len(args) == 1:
-        download_year(*args, **kwargs)
-
-    if len(args) == 2:
-        start: int = args[0]
-        end: int = args[-1]
-        for year in range(start, end + 1):
-            download_year(year, **kwargs)
+    else:
+        for year in range(start_year, end_year+1):
+            download_year(year, output_dir=output_dir)
