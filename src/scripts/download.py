@@ -5,11 +5,7 @@ from cds_weather_api import RequestBuilder
 from cds_weather_api.validators import Validators as validate
 
 from constants import DATA_CONFIG
-
-def month_range(chunk: int) -> Iterator[tuple[int, int]]:
-    for start_month in range(1, 13, chunk):
-        end_month: int = min(start_month + chunk - 1, 12)
-        yield start_month, end_month
+from ranges import month_chunk
 
 def download_year(year: int, *,  output_dir: str | None = None) -> None:
     era5_config: dict = DATA_CONFIG["era5"]
@@ -22,7 +18,7 @@ def download_year(year: int, *,  output_dir: str | None = None) -> None:
             return os.path.join(output_dir, file_name)
         return file_name
 
-    for start, end in month_range(chunk=5):
+    for start, end in month_chunk(5):
         target = get_target(start, end)
         request = (
             RequestBuilder()
