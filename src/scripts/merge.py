@@ -33,14 +33,19 @@ class Datasets:
             )
 
 class Operations:
-    def __init__(self, *, raw_dir: str) -> None:
+    def __init__(self, year: int, *, raw_dir: str) -> None:
         if not os.path.exists(raw_dir):
             raise FileNotFoundError(f"{raw_dir}: doesn't exist")
+        
+        year_pattern = f"{raw_dir}/{year}_*"
 
-        self.raw_dir = raw_dir
+        self._accum_dirs = sorted(glob.glob(f"{year_pattern}/*accum.nc"))
+        self._instant_dirs = sorted(glob.glob(f"{year_pattern}/*instant.nc"))
 
-        self._accum_dirs = sorted(glob.glob(f"{self.raw_dir}/**/*accum.nc"))
-        self._instant_dirs = sorted(glob.glob(f"{self.raw_dir}/**/*instant.nc"))
+        if not self._accum_dirs:
+            raise FileNotFoundError(f"No accum files found in {raw_dir}")
+        if not self._instant_dirs:
+            raise FileNotFoundError(f"No instant files found in {raw_dir}")
 
         self._datasets = Datasets()
 
@@ -85,7 +90,7 @@ class Operations:
     
     def resample_instant(self) -> Self:
         print("Resample instantaneous variables...")
-        self._datasets.da_instant= self._datasets.da_instant.resample(valid_time="1D").mean()
+        self._datasets.da_instant = self._datasets.da_instant.resample(valid_time="1D").mean()
         return self
     
     def merge(self) -> Self:
