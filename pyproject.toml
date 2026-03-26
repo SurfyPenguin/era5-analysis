@@ -9,11 +9,13 @@ description = "A project to analyze ERA5 data for insights focused around climat
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "cartopy>=0.25.0",
     "cds-weather-api",
     "dask>=2026.3.0",
     "folium>=0.20.0",
     "h5netcdf>=1.8.1",
     "ipykernel>=7.2.0",
+    "matplotlib>=3.10.8",
     "netcdf4>=1.7.4",
     "numpy>=2.4.3",
     "pandas>=3.0.1",
