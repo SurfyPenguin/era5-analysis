@@ -8,6 +8,7 @@ import xarray as xr
 from constants import DATA_CONFIG
 
 VARIABLES = DATA_CONFIG["era5"]["parameters"]
+DASK_CHUNKS = dict(valid_time = 365)
 
 @dataclass
 class Datasets:
@@ -56,7 +57,7 @@ class Operations:
             drop_number: bool = True,
     ) -> Self:
         print("Deserialize accumulated variables...")
-        self._datasets.da_accum = xr.open_mfdataset(self._accum_dirs, chunks="auto")
+        self._datasets.da_accum = xr.open_mfdataset(self._accum_dirs, chunks=DASK_CHUNKS)
 
         # filter
         if drop_expver:
@@ -73,7 +74,7 @@ class Operations:
             drop_number: bool = True,
     ) -> Self:
         print("Deserialize instantaneous variables...")
-        self._datasets.da_instant = xr.open_mfdataset(self._instant_dirs, chunks="auto")
+        self._datasets.da_instant = xr.open_mfdataset(self._instant_dirs, chunks=DASK_CHUNKS)
 
         # filter
         if drop_expver:
@@ -85,7 +86,7 @@ class Operations:
     
     def resample_accum(self) -> Self:
         print("Resample accumulated variables...")
-        self._datasets.da_accum = self._datasets.da_accum.resample(valid_time="1D").last()
+        self._datasets.da_accum = self._datasets.da_accum.resample(valid_time="1D").sum()
         return self
     
     def resample_instant(self) -> Self:
