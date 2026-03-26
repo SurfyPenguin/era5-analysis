@@ -20,7 +20,7 @@ era5:
 
 span:
   year_start: 2000
-  year_end: 2023
+  year_end: 2024
 
 paths:
   compressed: "data/compressed"
