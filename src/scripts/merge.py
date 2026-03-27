@@ -57,7 +57,7 @@ class Operations:
             drop_number: bool = True,
     ) -> Self:
         print("Deserialize accumulated variables...")
-        self._datasets.da_accum = xr.open_mfdataset(self._accum_dirs, chunks=DASK_CHUNKS)
+        self._datasets.da_accum = xr.open_mfdataset(self._accum_dirs, chunks="auto")
 
         # filter
         if drop_expver:
@@ -74,7 +74,7 @@ class Operations:
             drop_number: bool = True,
     ) -> Self:
         print("Deserialize instantaneous variables...")
-        self._datasets.da_instant = xr.open_mfdataset(self._instant_dirs, chunks=DASK_CHUNKS)
+        self._datasets.da_instant = xr.open_mfdataset(self._instant_dirs, chunks="auto")
 
         # filter
         if drop_expver:

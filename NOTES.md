@@ -23,4 +23,5 @@ The uncompressed directories contain all the datasets but they are fragmented in
     3. __Merge__: Combine all monthly fragments into a single yearly dataset.
     4. __Serialization__: Write the merged dataset to disk, into single NetCDF file named `combined_YYYY.nc`.
 
-4. `data/processed`
+4. `data/processed`:
+(...)
