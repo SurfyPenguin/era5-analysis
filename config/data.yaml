@@ -14,7 +14,6 @@ era5:
     - "d2m"
     - "t2m"
     - "tp"
-  
   download_format: "zip"
   data_format: "netcdf"
 
@@ -27,3 +26,16 @@ paths:
   raw: "data/raw"
   interim: "data/interim"
   processed: "data/processed"
+
+post_processing:
+  dim_size:
+    - time: 9132
+    - latitude: 121
+    - longitude: 121
+  target: "concurrent_extreme"
+  features:
+    - "u10"
+    - "v10"
+    - "d2m"
+
+# refer NOTES.md for more information
