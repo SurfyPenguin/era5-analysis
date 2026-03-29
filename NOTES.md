@@ -39,5 +39,7 @@ Climate in India varies significantly across regions, an absolute threshold can'
 ## Labelling Datasets
 We processed the 25-year dataset month-by-month to compute __localized thresholds__ (90th percentile for temperature and 95th for precipitation). A day was labelled as a __concurrent extreme__ (`1`) only if both variables simultaneously exceeded their respective monthly thresholds.
 
+__Additional information__: `valid_time` dimension is renamed to `time` in the final labelled dataset.
+
 ## Configuration
 All the configuration such as era5 attributes, time-span, file paths, and post processing configuration are stored in `data/` directory.
