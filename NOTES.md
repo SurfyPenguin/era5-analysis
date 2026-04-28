@@ -1,6 +1,8 @@
 ## Downloading Datasets
 We used [cds-weather-api](https://github.com/SurfyPenguin/cds-weather-api), to programmatically download datasets using a script (`src/scripts/download.py`).
 
+The library validates request payload for proper formatting, making sure we get expected datasets.
+
 ## Shape of Datasets
 The raw dataset contains __five__ dimensions: __latitude__, __longitude__, __time__, __experiment version__, and __ensemble number__.
 
@@ -10,7 +12,7 @@ The resulting dataset will contain only __three__ dimensions i.e __longitude__, 
 The `expver` (experiment version) and `number` (ensemble number) coordinates were dropped, since both are consistent across all years.
 
 ## Resampling
-The pipeline resamples all the datasets to daily resolution. For `total precipitation`, it __sums__ the hourly accumulation values to calculate the total daily precipitation. 
+The pipeline resamples all the datasets to daily resolution. For `total precipitation`, it __sums__ the hourly accumulation values to calculate the total daily precipitation. Other instantaneous variables are __averaged__. 
 
 ## Processing, File Format & Naming Schemes 
 1. `data/compressed/`:
@@ -41,5 +43,19 @@ We processed the 25-year dataset month-by-month to compute __localized threshold
 
 __Additional information__: `valid_time` dimension is renamed to `time` in the final labelled dataset.
 
-## Configuration
+## Configuration Files
 All the configuration such as era5 attributes, time-span, file paths, and post processing configuration are stored in `data/` directory.
+
+## Hardware Constraints
+The processing pipeline was designed to run within the memory limits of the following local environment:
+
+| Component | Specification |
+| :-- | :--- |
+| **Operating System** | Fedora Linux 43 (Workstation Edition) x86_64 |
+| **Kernel** | Linux 6.19.13-200.fc43.x86_64 |
+| **CPU** | AMD Ryzen 7 3750H (8) @ 2.30 GHz |
+| **GPU 1** | GPU 1: NVIDIA GeForce GTX 1650 Mobile / Max-Q [Discrete] |
+| **GPU 2** | GPU 2: AMD Radeon Vega 10 Graphics [Integrated] |
+| **Memory** | 8 GB SODIMM @ 2400 MT/s
+
+__NOTE__: Because of 8GB RAM limit, `xarray` operations are handled iteratively to prevent out-of-memory (OOM) crashes during final NetCDF merge.
