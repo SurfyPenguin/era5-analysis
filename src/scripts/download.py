@@ -39,9 +39,7 @@ def download_year(year: int, *,  output_dir: str | None = None) -> None:
         request.execute()
 
 def download(start_year: int, end_year: int | None = None, *, output_dir: str | None = None) -> None:
-    if end_year is None:
-        download_year(start_year, output_dir=output_dir)
+    end_year = start_year if end_year is None else end_year
 
-    else:
-        for year in range(start_year, end_year+1):
-            download_year(year, output_dir=output_dir)
+    for year in range(start_year, end_year+1):
+        download_year(year, output_dir=output_dir)

@@ -104,7 +104,7 @@ class Operations:
             instant_daily,
         ])
         # clear memory
-        print("Clear accum & instant datasets from memory...")
+        print("Clear accum & instant datasets...")
         self._datasets.da_accum = None
         self._datasets.da_instant = None
 

@@ -21,7 +21,7 @@ The `expver` (experiment version) and `number` (ensemble number) coordinates wer
 ## Resampling
 The pipeline resamples all the datasets to daily resolution. For `total precipitation`, it __sums__ the hourly accumulation values to calculate the total daily precipitation. Other instantaneous variables are __averaged__. 
 
-## Processing, File Format & Naming Schemes 
+## Processing, File Format & Naming Scheme 
 1. `data/compressed/`:
 Downloaded datasets were compressed (zip) files following the naming scheme `YYYY-MM-MM.zip`, where `YYYY` is the year and `MM-MM` is the month range the dataset covers.
 
