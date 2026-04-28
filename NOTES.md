@@ -1,12 +1,19 @@
 ## Downloading Datasets
-We used [cds-weather-api](https://github.com/SurfyPenguin/cds-weather-api), to programmatically download datasets using a script (`src/scripts/download.py`).
+We used [cds-weather-api](https://github.com/SurfyPenguin/cds-weather-api), to programmatically download datasets by creating scripts (`src/scripts/download.py`).
 
-The library validates request payload for proper formatting, making sure we get expected datasets.
+The library validates request payload for proper formatting, making sure we download correct datasets.
 
 ## Shape of Datasets
-The raw dataset contains __five__ dimensions: __latitude__, __longitude__, __time__, __experiment version__, and __ensemble number__.
+The raw dataset contains __five__ dimensions: __latitude__, __longitude__, __time__, __experiment version__ (expver), and __ensemble number__ (number).
 
-The resulting dataset will contain only __three__ dimensions i.e __longitude__, __latitude__, and  __time__. Next part covers the reason for dropping __experiment version__ and __ensemble number__.
+The resulting dataset will contain only __three__ dimensions i.e __longitude__, __latitude__, and  __time__.
+
+* __Shape__: `time x latitude x longitude`
+* __Size__: `9132 x 121 x 121`
+
+__NOTE__: Size was computed post-pipeline-processing. The time dimension (9,132) represents daily-sampled records over the 25-year period, while spatial grid (121 x 121) covers the localized bounding box.
+
+Next part covers the reason for dropping __experiment version__ and __ensemble number__.
 
 ## Dropping Coordinates
 The `expver` (experiment version) and `number` (ensemble number) coordinates were dropped, since both are consistent across all years.
@@ -32,7 +39,7 @@ The uncompressed directories contain all the datasets fragmented into monthly ch
 The final dataset is stored here as a single NetCDF file. It includes a binary target variable `concurrent_extreme`, where `1` indicates a concurrent extreme event and `0` indicates the absence of one.
 
 ## Definition of concurrent extreme
-We opted for a percentile based approach
+We opted for a percentile-based approach
 > A day is considered concurrent extreme (`1`) if total precipitation exceeds 95th percentile and temperature exceeds 90th percentile of that month's historical distribution. All other days are labelled `0`.
 
 ### Why?
@@ -44,7 +51,7 @@ We processed the 25-year dataset month-by-month to compute __localized threshold
 __Additional information__: `valid_time` dimension is renamed to `time` in the final labelled dataset.
 
 ## Configuration Files
-All the configuration such as era5 attributes, time-span, file paths, and post processing configuration are stored in `data/` directory.
+All the configuration such as era5 attributes, time-span, file paths, and post-processing configuration are stored in `data/` directory.
 
 ## Hardware Constraints
 The processing pipeline was designed to run within the memory limits of the following local environment:
